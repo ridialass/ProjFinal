@@ -1,0 +1,153 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="ProjetFinalModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Articles">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="nom" Type="varchar" MaxLength="50" />
+    <Property Name="prix" Type="int" />
+    <Property Name="image" Type="varchar" MaxLength="255" />
+    <Property Name="description" Type="text" />
+    <Property Name="marque" Type="varchar" MaxLength="50" />
+    <Property Name="resume" Type="text" />
+    <Property Name="date_dajout" Type="datetime" />
+    <Property Name="archive" Type="datetime" />
+  </EntityType>
+  <EntityType Name="Clients">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="nom" Type="varchar" MaxLength="50" />
+    <Property Name="email" Type="varchar" MaxLength="255" />
+    <Property Name="passwd" Type="varchar" MaxLength="60" />
+    <Property Name="adr_ligne1" Type="varchar" MaxLength="100" />
+    <Property Name="adr_ligne2" Type="varchar" MaxLength="100" />
+    <Property Name="adr_cp" Type="varchar" MaxLength="5" />
+    <Property Name="adr_ville" Type="varchar" MaxLength="100" />
+    <Property Name="archive" Type="datetime" />
+    <Property Name="statut" Type="varchar" MaxLength="20" />
+  </EntityType>
+  <EntityType Name="PanierLignes">
+    <Key>
+      <PropertyRef Name="id_panier" />
+      <PropertyRef Name="id_article" />
+    </Key>
+    <Property Name="id_panier" Type="int" Nullable="false" />
+    <Property Name="id_article" Type="int" Nullable="false" />
+    <Property Name="quantite" Type="int" />
+  </EntityType>
+  <EntityType Name="Paniers">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" Nullable="false" />
+    <Property Name="id_client" Type="int" />
+    <Property Name="datetime" Type="datetime" />
+  </EntityType>
+  <EntityType Name="Tags">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="nom" Type="varchar" MaxLength="50" />
+    <Property Name="description" Type="varchar" MaxLength="200" />
+  </EntityType>
+  <EntityType Name="TagsArticle">
+    <Key>
+      <PropertyRef Name="Articles_id" />
+      <PropertyRef Name="Tags_id" />
+    </Key>
+    <Property Name="Articles_id" Type="int" Nullable="false" />
+    <Property Name="Tags_id" Type="int" Nullable="false" />
+  </EntityType>
+  <Association Name="FK__PanierLig__id_ar__1DE57479">
+    <End Role="Articles" Type="Self.Articles" Multiplicity="1" />
+    <End Role="PanierLignes" Type="Self.PanierLignes" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Articles">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="PanierLignes">
+        <PropertyRef Name="id_article" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__PanierLig__id_pa__1CF15040">
+    <End Role="Paniers" Type="Self.Paniers" Multiplicity="1" />
+    <End Role="PanierLignes" Type="Self.PanierLignes" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Paniers">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="PanierLignes">
+        <PropertyRef Name="id_panier" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Paniers__id_clie__1A14E395">
+    <End Role="Clients" Type="Self.Clients" Multiplicity="0..1" />
+    <End Role="Paniers" Type="Self.Paniers" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Clients">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Paniers">
+        <PropertyRef Name="id_client" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TagsArticle_Articles">
+    <End Role="Articles" Type="Self.Articles" Multiplicity="1" />
+    <End Role="TagsArticle" Type="Self.TagsArticle" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Articles">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="TagsArticle">
+        <PropertyRef Name="Articles_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TagsArticle_Tags">
+    <End Role="Tags" Type="Self.Tags" Multiplicity="1" />
+    <End Role="TagsArticle" Type="Self.TagsArticle" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Tags">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="TagsArticle">
+        <PropertyRef Name="Tags_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="ProjetFinalModelStoreContainer">
+    <EntitySet Name="Articles" EntityType="Self.Articles" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Clients" EntityType="Self.Clients" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="PanierLignes" EntityType="Self.PanierLignes" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Paniers" EntityType="Self.Paniers" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Tags" EntityType="Self.Tags" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TagsArticle" EntityType="Self.TagsArticle" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK__PanierLig__id_ar__1DE57479" Association="Self.FK__PanierLig__id_ar__1DE57479">
+      <End Role="Articles" EntitySet="Articles" />
+      <End Role="PanierLignes" EntitySet="PanierLignes" />
+    </AssociationSet>
+    <AssociationSet Name="FK__PanierLig__id_pa__1CF15040" Association="Self.FK__PanierLig__id_pa__1CF15040">
+      <End Role="Paniers" EntitySet="Paniers" />
+      <End Role="PanierLignes" EntitySet="PanierLignes" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Paniers__id_clie__1A14E395" Association="Self.FK__Paniers__id_clie__1A14E395">
+      <End Role="Clients" EntitySet="Clients" />
+      <End Role="Paniers" EntitySet="Paniers" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TagsArticle_Articles" Association="Self.FK_TagsArticle_Articles">
+      <End Role="Articles" EntitySet="Articles" />
+      <End Role="TagsArticle" EntitySet="TagsArticle" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TagsArticle_Tags" Association="Self.FK_TagsArticle_Tags">
+      <End Role="Tags" EntitySet="Tags" />
+      <End Role="TagsArticle" EntitySet="TagsArticle" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

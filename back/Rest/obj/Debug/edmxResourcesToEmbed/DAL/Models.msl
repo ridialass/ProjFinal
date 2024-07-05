@@ -1,0 +1,71 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="ProjetFinalModelStoreContainer" CdmEntityContainer="ProjetFinalEntities">
+    <EntitySetMapping Name="Articles">
+      <EntityTypeMapping TypeName="IsTypeOf(ProjetFinalModel.Articles)">
+        <MappingFragment StoreEntitySet="Articles">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="nom" ColumnName="nom" />
+          <ScalarProperty Name="prix" ColumnName="prix" />
+          <ScalarProperty Name="image" ColumnName="image" />
+          <ScalarProperty Name="description" ColumnName="description" />
+          <ScalarProperty Name="marque" ColumnName="marque" />
+          <ScalarProperty Name="resume" ColumnName="resume" />
+          <ScalarProperty Name="date_dajout" ColumnName="date_dajout" />
+          <ScalarProperty Name="archive" ColumnName="archive" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Clients">
+      <EntityTypeMapping TypeName="IsTypeOf(ProjetFinalModel.Clients)">
+        <MappingFragment StoreEntitySet="Clients">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="nom" ColumnName="nom" />
+          <ScalarProperty Name="email" ColumnName="email" />
+          <ScalarProperty Name="passwd" ColumnName="passwd" />
+          <ScalarProperty Name="adr_ligne1" ColumnName="adr_ligne1" />
+          <ScalarProperty Name="adr_ligne2" ColumnName="adr_ligne2" />
+          <ScalarProperty Name="adr_cp" ColumnName="adr_cp" />
+          <ScalarProperty Name="adr_ville" ColumnName="adr_ville" />
+          <ScalarProperty Name="archive" ColumnName="archive" />
+          <ScalarProperty Name="statut" ColumnName="statut" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="PanierLignes">
+      <EntityTypeMapping TypeName="IsTypeOf(ProjetFinalModel.PanierLignes)">
+        <MappingFragment StoreEntitySet="PanierLignes">
+          <ScalarProperty Name="id_panier" ColumnName="id_panier" />
+          <ScalarProperty Name="id_article" ColumnName="id_article" />
+          <ScalarProperty Name="quantite" ColumnName="quantite" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Paniers">
+      <EntityTypeMapping TypeName="IsTypeOf(ProjetFinalModel.Paniers)">
+        <MappingFragment StoreEntitySet="Paniers">
+          <ScalarProperty Name="datetime" ColumnName="datetime" />
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="id_client" ColumnName="id_client" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Tags">
+      <EntityTypeMapping TypeName="IsTypeOf(ProjetFinalModel.Tags)">
+        <MappingFragment StoreEntitySet="Tags">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="nom" ColumnName="nom" />
+          <ScalarProperty Name="description" ColumnName="description" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <AssociationSetMapping Name="TagsArticle" TypeName="ProjetFinalModel.TagsArticle" StoreEntitySet="TagsArticle">
+      <EndProperty Name="Articles">
+        <ScalarProperty Name="id" ColumnName="Articles_id" />
+      </EndProperty>
+      <EndProperty Name="Tags">
+        <ScalarProperty Name="id" ColumnName="Tags_id" />
+      </EndProperty>
+    </AssociationSetMapping>
+  </EntityContainerMapping>
+</Mapping>
